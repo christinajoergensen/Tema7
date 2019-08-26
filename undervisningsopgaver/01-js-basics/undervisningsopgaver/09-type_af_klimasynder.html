@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <script>
+        let timer = 1;
+        let aftryk = timer * 109;
+        let facit = `Ved ${timer} timers flyrejse har du udledt ${aftryk} kg co2`;
+        let resultat;
+
+        if (aftryk < 100) {
+            resultat = `Ved ${timer} timers flyrejse har du udledt ${aftryk} kg co2. Tæt på Thunberg`;
+        }
+
+        if (aftryk >= 100 && aftryk < 200) {
+            resultat = `Ved ${timer} timers flyrejse har du udledt ${aftryk} kg co2. Ja ja, du behøver ikke at melde dig ud af Å!`;
+        }
+
+        if (aftryk >= 200 && aftryk < 600) {
+            resultat = `Ved ${timer} timers flyrejse har du udledt ${aftryk} kg co2. Det er godt for turismen i nordeuropa.`;
+        }
+
+        if (aftryk > 600) {
+            resultat = `Ved ${timer} timers flyrejse har du udledt ${aftryk} kg co2. Nå ja vi kan jo altid kolonisere en anden planet ...`;
+        }
+
+
+        //        let længde = 3;
+        //        let bredde = 5;
+        //        let areal = længde * bredde;
+        //        let resultat;
+        //
+        //        //        Hvis arealet er under 100, skal der stå: Arealet er for lille
+        //
+        //        if (areal < 100) {
+        //            resultat = "Arealet er for lille"
+        //        }
+        //        // Er arealet mellem 100 og 200, skal der stå: Arealet er ok
+        //        if (areal >= 100 && areal < 200) {
+        //            resultat = "Arealet er ok";
+        //        }
+        //        // Er det større end (eller lig med)  200, skal der stå: Arealet er for stort
+        //
+        //        if (areal >= 200) {
+        //            resultat = "Arealet er for stort";
+        //        }
+        //
+        //        console.log(resultat);
+    </script>
+</body></html>
