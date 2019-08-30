@@ -10,7 +10,14 @@
 
 <body>
     <article>
-        <p>Navn: type: levested</p>
+
+        <h2>
+            navn:
+        </h2>
+        <p>type: </p>
+        <div>
+            <p>levested: </p>
+        </div>
         <img class="grisebillede">
     </article>
 
@@ -19,15 +26,17 @@
             navn: "Gris",
             type: "Pattedyr",
             billede: "http://mabe-kea.dk/E19/pics/pig.png",
-            Levested: "Svinefarme"
+            levested: "Svinefarme"
         }
 
         console.log(dyr.navn, dyr.billede, dyr.type, dyr.levested)
 
+        const h2 = document.querySelector("h2");
+        h2.textContent = dyr.navn;
+
         const p = document.querySelector("p");
-        p.textContent = dyr.navn;
-        p.textContent += dyr.type;
-        p.textContent += dyr.levested;
+        p.textContent = dyr.type + dyr.levested;
+        //        p.textContent = dyr.levested;
 
         const img = document.querySelector("img");
         img.src = dyr.billede;
