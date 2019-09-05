@@ -5,24 +5,104 @@
     <title>Visalle</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
     <style>
         img {
             width: 100%;
+            border-radius: 50%;
+            border: 4px solid;
+            padding: 10px;
         }
 
         section {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             grid-gap: 1em;
+            padding: 4rem;
+        }
+
+        template,
+        #type,
+        #pris {
+            text-align: center;
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.8em;
+            line-height: 0.8;
+        }
+
+        #pris {
+            color: #8b5936;
         }
 
         .valgt {
-            background-color: red;
+            background-color: rgba(191, 189, 189, 0.47);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+
+        }
+
+        button:hover {
+            background-color: rgba(191, 189, 189, 0.47);
+        }
+
+        button {
+            border: none;
+            margin-top: 4vw;
+            margin-bottom: 2vw;
+            font-family: 'Great Vibes', cursive;
+            font-size: 0.8em;
+            background-color: #eaeaea;
+
+        }
+
+        #topbillede {
+            background-size: contain;
+            background-image: url(imgs/large/hvidvin.jpg);
+            height: 22vw;
+            width: 100vw;
+
+        }
+
+        body {
+            background-color: #eaeaea;
+        }
+
+        h1 {
+
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            color: #dbdbdb;
+            padding-left: 12vw;
+            font-size: 1.5em;
+        }
+
+        h2 {
+            font-family: 'Great Vibes', cursive;
+            text-align: center;
+            line-height: 0.7;
+            padding-top: 20px;
+        }
+
+        .tekst {
+            width: 100vw;
+            background-color: #262525;
+            height: 10vw;
+            padding-top: 7vw;
         }
     </style>
 </head>
 
 <body>
+    <div class="tekst">
+        <h1>Velkommen til Bistro Babushka</h1>
+        <!--        <p class="se">Se vores udvalg af lækre retter her på siden</p>-->
+    </div>
+    <div id="topbillede"></div>
     <nav>
         <button class="valgt" data-kategori="alle">Alle</button>
         <button class="filterknap" data-kategori="forretter">Forretter</button>
@@ -34,8 +114,9 @@
 
     <template>
         <article class="retter">
-            <h2></h2>
             <img src="" alt="">
+            <h2></h2>
+
             <p id="type"></p>
             <p id="pris"></p>
             <img src="" alt="">

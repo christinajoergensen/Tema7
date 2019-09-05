@@ -5,15 +5,20 @@
     <title>Visalle</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
     <style>
         #detalje {
-            position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: hsla(186, 55%, 14%, 0.78);
-            overflow: scroll;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+
+            background-color: #eaeaea;
         }
 
         #detalje .luk {
@@ -31,26 +36,67 @@
             background: white;
         }
 
+        h2 {
+            font-family: 'Great Vibes', cursive;
+            text-align: center;
+            line-height: 0.7;
+        }
+
+        button {
+            border: none;
+            margin-top: 4vw;
+            margin-bottom: 2vw;
+            font-family: 'Great Vibes', cursive;
+            font-size: 0.8em;
+            background-color: #eaeaea;
+
+        }
+
+        h1 {
+
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            color: #dbdbdb;
+            padding-left: 12vw;
+            font-size: 1.5em;
+            padding-top: 3vw;
+        }
 
         img {
-            width: 20vw;
-            min-height: 50vh;
+            padding-top: 20px;
         }
 
 
         .gem {
             display: none;
         }
+
+        .tekst {
+            width: 100vw;
+            background-color: #262525;
+            height: 10vw;
+            padding: 50px;
+        }
+
+        #kort {
+            padding: 120px;
+            padding-top: 0;
+        }
     </style>
 </head>
 
 <body>
+    <div class="tekst">
+        <h1>Bistro Babushka</h1>
+        <!--        <p class="se">Se vores udvalg af lækre retter her på siden</p>-->
+    </div>
 
     <section id="detalje">
         <article class="ret">
-            <button class="luk">X</button>
-            <h2></h2>
+            <button class="luk">←</button>
+
             <img src="" alt="">
+            <h2></h2>
             <p id="prisdetalje">
                 <p id="kort"></p>
         </article>
