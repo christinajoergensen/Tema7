@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Visalle</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #detalje {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: hsla(186, 55%, 14%, 0.78);
+            display: none;
+            overflow: scroll;
+        }
+
+        #detalje .luk {
+            position: fixed;
+            top: 0;
+            right: 0;
+            font-size: 4em;
+        }
+
+        #detalje .person {
+            width: 60vw;
+            min-height: 50vh;
+            margin: 4rem auto;
+            padding: 4rem;
+            background: white;
+        }
+
+        .dyr {
+            border: 1px solid black;
+            margin: 5px;
+            padding: 5px;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        section {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-gap: 1em;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+        }
+
+        .valgt {
+            background-color: red;
+        }
+
+        .gem {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <button class="filterknap valgt" data-køn="alle">Alle</button>
+        <button class="filterknap" data-køn="m">Mænd</button>
+        <button class="filterknap" data-køn="k">Kvinder</button>
+        <button class="filterknap" data-køn="andet">Andet</button>
+    </nav>
+
+    <template>
+        <article>
+            <h2></h2>
+            <img src="" alt="">
+            <p id="type"></p>
+            <a href=""></a>
+        </article>
+    </template>
+
+    <section id="liste"></section>
+
+    <section id="detalje">
+        <article class="person">
+            <button class="luk">X</button>
+            <h2></h2>
+            <img src="" alt="">
+            <p>Github:
+                <a class="githubLink" href=""></a></p>
+        </article>
+    </section>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+        let alleDyr = [];
+        let filter = "alle";
+
+        function start() {
+            const popup = document.querySelector("#detalje");
+            const lukKnap = document.querySelector(".luk");
+            lukKnap.addEventListener("click", () => popup.classList.add("gem"));
+            const filterKnapper = document.querySelectorAll(".filterknap");
+            filterKnapper.forEach(knap => knap.addEventListener("click", filtrerPersoner));
+
+            function filtrerPersoner() {
+                document.querySelector(".valgt").classList.remove("valgt");
+                this.classList.add("valgt");
+                filter = this.dataset.køn;
+                console.log(filter);
+                visDyr();
+            }
+
+            async function getJason() {
+                let jsonData = await fetch("https://spreadsheets.google.com/feeds/list/1Xge7slZ9dEOTCn1Yxl3OE4xgvrXOL8Y_iu3WN1yGB1U/od6/public/values?alt=json");
+
+                alleDyr = await jsonData.json();
+                visDyr();
+            }
+
+            function visDyr() {
+                const dest = document.querySelector("#liste");
+                const temp = document.querySelector("template");
+                dest.textContent = "";
+                alleDyr.feed.entry.forEach((dyr) => {
+                    if (dyr.gsx$køn.$t == filter || filter == "alle") {
+                        const klon = temp.cloneNode(true).content;
+                        klon.querySelector("h2").textContent = dyr.gsx$navn.$t;
+                        klon.querySelector("img").src = dyr.gsx$billede.$t;
+                        klon.querySelector("#type").textContent = dyr.gsx$alder.$t;
+                        klon.querySelector("a").textContent = dyr.gsx$github.$t;
+                        klon.querySelector("a").href = "http://github.com/" + dyr.gsx$github.$t;
+                        dest.appendChild(klon);
+                        dest.lastElementChild.addEventListener("click", () => {
+                            visDetalje(dyr);
+                        });
+                    }
+                });
+
+            }
+
+            function visDetalje(dyr) {
+                document.querySelector("#detalje").style.display = "block";
+
+                document.querySelector("#detalje .luk").addEventListener("click", skjulDetalje);
+
+                document.querySelector("#detalje img").src = dyr.gsx$billede.$t;
+                document.querySelector("#detalje img").alt = `Portræt af ${dyr.gsx$billede.$t}`;
+                document.querySelector("#detalje .githubLink").href = `http://github.com/${dyr.gsx$github.$t}`;
+                document.querySelector("#detalje .githubLink").textContent = `github.com/${dyr.gsx$github.$t}`;
+            }
+
+            function skjulDetalje() {
+                document.querySelector("#detalje").style.display = "none";
+            }
+
+            getJason();
+
+        }
+    </script>
+</body></html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Person Liste</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .person {
+            border: 1px solid silver;
+            padding: 20px;
+        }
+
+        #detalje {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: blue;
+            display: none;
+        }
+
+        #detalje .luk {
+            position: fixed;
+            top: 0;
+            right: 0;
+            font-size: 4rem;
+        }
+
+        #detalje .person {
+            width: 20vw;
+            min-height: 50vh;
+            margin: 4rem auto;
+            padding: 1rem;
+            background-color: white;
+        }
+
+    </style>
+</head>
+
+
+<body>
+    <section id="detalje">
+        <article class="person">
+            <button class="luk">X</button>
+            <h2>Hej</h2>
+            <img src="" alt="">
+            <p>github:
+                <a class="githubLink" href=""></a>
+            </p>
+        </article>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+        let personliste = [];
+        let filter = "alle";
+
+        // første funktion der kaldes efter DOM er loaded
+
+        function start() {
+
+            const filterKnapper = document.querySelectorAll("nav button");
+            filterKnapper.forEach(knap => knap.addEventListener("click", filtrer))
+            hentJson();
+        }
+
+        //funktion der filtrerer personer (json)
+
+        function filtrer() {
+            console.log(this); //tjek at den er blevet gjort klikbar i consollen
+
+            filter = this.dataset.køn; //sæt varible "filtet" til aktuel værdi
+            console.log(filter);
+
+            document.querySelector(".valgt").classList.remove("valgt"); //fjern klassen valgt fra aktuel knap
+            this.classList.add("valgt"); //marker den nyvalgte knap
+
+            visPerson(); //kald funktionen vis igen med nyt filter
+
+        }
+
+
+        // funktion der henter data fra Google sheet (via URL)
+        async function hentJson() {
+            const jsonUrl =
+                "https://spreadsheets.google.com/feeds/list/1Xge7slZ9dEOTCn1Yxl3OE4xgvrXOL8Y_iu3WN1yGB1U/od6/public/values?alt=json";
+            const jsonData = await fetch(jsonUrl);
+            console.log(jsonData);
+
+            personliste = await jsonData.json();
+            console.log(personliste);
+
+            visPerson();
+        }
+
+
+
+        //funktion der viser personer i liste view
+        function visPerson() {
+
+            const dest = document.querySelector("#detalje"); //container til articler med en person
+            //select indhold af html skabelon (article)
+            dest.textContent = ""; //ryd destination før man kloner nye
+
+
+            personliste.feed.entry.forEach(person => { //loop igennem json (personer)
+                if (dyr.gsx$køn.$t == filter || filter == "alle") { //tjek hvilket køn personer har og sammenlign med filter eller vis alle
+
+                    // console.log(klon);
+
+                    document.querySelector("#detalje").style.display = "block";
+
+                    document.querySelector("#detalje .luk").addEventListener("click", skjulDetalje);
+
+                    document.querySelector("#detalje h2").textContent = dyr.gsx$navn.$t;
+                    document.querySelector("#detalje img").src = dyr.gsx$billede.$t;
+                    document.querySelector("#detalje a").textContent += dyr.gsx$github.$t;
+                    document.querySelector("#detalje .alder").textContent += dyr.gsx$alder.$t;
+                    document.querySelector("#detalje .køn").textContent += dyr.gsx$køn.$t;
+                    document.querySelector("#detalje .hold").textContent += dyr.gsx$hold.$t;
+                    document.querySelector("#detalje .historie").textContent += dyr.gsx$historie.$t;
+                }
+            });
+        }
+
+        function visDetalje(dyr) {
+            console.log(dyr)
+
+            document.querySelector("#detalje").style.display = "block";
+
+            document.querySelector("#detalje .luk").addEventListener("click", skjulDetalje);
+
+            document.querySelector("#detalje h2").textContent = dyr.gsx$navn.$t;
+            document.querySelector("#detalje img").src = dyr.gsx$billede.$t;
+            document.querySelector("#detalje a").textContent += dyr.gsx$github.$t;
+            document.querySelector("#detalje .alder").textContent += dyr.gsx$alder.$t;
+            document.querySelector("#detalje .køn").textContent += dyr.gsx$køn.$t;
+            document.querySelector("#detalje .hold").textContent += dyr.gsx$hold.$t;
+            document.querySelector("#detalje .historie").textContent += dyr.gsx$historie.$t;
+
+        }
+
+        function skjulDetalje() {
+            document.querySelector("#detalje").style.display = "none";
+        }
+
+    </script>
+</body>
+
+</html>
